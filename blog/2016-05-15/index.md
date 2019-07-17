@@ -319,7 +319,7 @@ All 40 lines of it.
 
 I think the biggest biggest takeaway of this blog post is how easy it is to hook into the code of a well-structured modern web application. The combination of Javascript modules, React and Flux allows us to inject our own logic into both the UI and the data flow of an app.
 
-You’ll find the [entire source code of the app on Github](https://github.com/Morhaus/facebook-sixth-sense). **June 9:** *removed from Github in compliance with a Cease and Desist*.
+You’ll find the [entire source code of the app on Github](https://github.com/alexkirsz/facebook-sixth-sense). **June 9:** *removed from Github in compliance with a Cease and Desist*.
 
-That’s it! Hope you’ve enjoyed the read. If you have any questions, you can ping me on twitter [@Morhaus](https://twitter.com/Morhaus).
+That’s it! Hope you’ve enjoyed the read. If you have any questions, you can ping me on twitter [@alexkirsz](https://twitter.com/alexkirsz).
 
