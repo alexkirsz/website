@@ -688,8 +688,8 @@ export default () => {
           <VSep s={5} />
 
           <Footer>
-            An interactive version of this document is available at{" "}
-            <a href="https://kirszenberg.com/cv">kirszenberg.com/cv</a>
+            An interactive and up-to-date version of this document is available
+            at <a href="https://kirszenberg.com/cv">kirszenberg.com/cv</a>
           </Footer>
         </Container>
       </SheetContainer>
