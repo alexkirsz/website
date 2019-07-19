@@ -8,14 +8,15 @@ module.exports = {
     siteUrl: config.siteUrl + pathPrefix
   },
   plugins: [
-    "gatsby-plugin-react-helmet",
+    "@rhysforyou/gatsby-plugin-react-helmet-async",
+    "gatsby-plugin-react-svg",
     "gatsby-plugin-styled-components",
     "gatsby-plugin-sharp",
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "post",
-        path: `${__dirname}/blog`
+        path: `${__dirname}/posts`
       }
     },
     {

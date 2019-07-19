@@ -4,7 +4,7 @@ module.exports = {
   siteTitle: "Alexandre Kirszenberg", // Navigation and Site Title
   siteTitleAlt: "Blog · Alexandre Kirszenberg", // Alternative Site title for SEO
   siteTitleManifest: "AKBlog",
-  siteUrl: "https://blog.kirszenberg.com", // Domain of your site. No trailing slash!
+  siteUrl: "https://kirszenberg.com", // Domain of your site. No trailing slash!
   siteLanguage: "en", // Language Tag on <html> element
   siteHeadline: "A blog by Alexandre Kirszenberg", // Headline for schema.org JSONLD
   // siteBanner: '/social/banner.jpg', // Your image for og:image tag. You can find it in the /static folder
