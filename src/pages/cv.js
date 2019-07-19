@@ -501,8 +501,7 @@ export default () => {
                       <>
                         <Icon path={mdiMapMarker} /> London
                         <HSep s={3} />
-                        <Icon path={mdiCalendarBlank} /> Sep. 2018{" "}
-                        <Icon path={mdiArrowRight} /> Dec. 2018
+                        <Icon path={mdiCalendarBlank} /> Sep. 2018 (4 mos.)
                       </>
                     }
                   >
@@ -533,8 +532,7 @@ export default () => {
                       <>
                         <Icon path={mdiMapMarker} /> San Francisco
                         <HSep s={3} />
-                        <Icon path={mdiCalendarBlank} /> May 2017{" "}
-                        <Icon path={mdiArrowRight} /> Sep. 2017
+                        <Icon path={mdiCalendarBlank} /> May 2017 (4 mos.)
                       </>
                     }
                   >
@@ -558,8 +556,7 @@ export default () => {
                       <>
                         <Icon path={mdiMapMarker} /> Paris
                         <HSep s={3} />
-                        <Icon path={mdiCalendarBlank} /> Jul. 2016{" "}
-                        <Icon path={mdiArrowRight} /> Aug. 2016
+                        <Icon path={mdiCalendarBlank} /> Jul. 2016 (2 mos.)
                       </>
                     }
                   >
