@@ -20,7 +20,8 @@ import {
   mdiCalendar,
   mdiCalendarBlank,
   mdiCalendarMonth,
-  mdiCalendarClock
+  mdiCalendarClock,
+  mdiMapMarker
 } from "@mdi/js";
 import LogoEpita from "../resources/logo_epita.svg";
 import LogoFacebook from "../resources/logo_facebook.svg";
@@ -147,8 +148,6 @@ const Info = styled.div`
   grid-template-rows: 1fr 1fr;
 `;
 
-const InfoItem = styled.a``;
-
 const IconContainer = styled.span`
   margin-right: ${props => (props.size * 0.4).toFixed(6)}em;
   display: inline-flex;
@@ -233,6 +232,7 @@ function SectionItem({ icon, children }) {
 
 const SectionItemTitleContainer = styled.h4`
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 0.2rem;
 `;
 
@@ -247,12 +247,22 @@ const SectionItemTitleRight = styled.div`
   font-size: 0.9em;
 `;
 
-function SectionItemTitle({ info, children }) {
+const SectionItemTitleBottom = styled.div`
+  flex-basis: 100%;
+  color: hsla(0, 0%, 0%, ${opacity.faded});
+  font-size: 0.9em;
+`;
+
+function SectionItemTitle({ info, bottomInfo, children }) {
   return (
     <SectionItemTitleContainer>
       <SectionItemTitleLeft>{children}</SectionItemTitleLeft>
 
       {info && <SectionItemTitleRight>{info}</SectionItemTitleRight>}
+
+      {bottomInfo && (
+        <SectionItemTitleBottom>{bottomInfo}</SectionItemTitleBottom>
+      )}
     </SectionItemTitleContainer>
   );
 }
@@ -346,7 +356,7 @@ export default () => {
             <VSep s={2} />
 
             <Subtitle>
-              Looking for an Spring internship in{" "}
+              Looking for a Spring internship in{" "}
               <SubtitleAccent>Software Engineering</SubtitleAccent> and{" "}
               <SubtitleAccent>Artificial Intelligence</SubtitleAccent>
             </Subtitle>
@@ -405,18 +415,20 @@ export default () => {
               <SectionContent>
                 <SectionItem>
                   <SectionItemTitle
-                    info={
+                    bottomInfo={
                       <>
+                        <Icon path={mdiMapMarker} /> Paris
+                        <HSep s={3} />
                         <Icon path={mdiCalendarClock} /> Started Jan. 2018
                       </>
                     }
                   >
-                    <SectionItemTitleLeft>
-                      Laboratoire de Recherche et Développement d'EPITA{" "}
-                      <SectionItemTitleSecondary>
-                        (Research Laboratory)
-                      </SectionItemTitleSecondary>
-                    </SectionItemTitleLeft>
+                    <a href="https://www.lrde.epita.fr/wiki/Home">
+                      LRDE – Laboratoire de Recherche et Développement d'EPITA
+                    </a>{" "}
+                    <SectionItemTitleSecondary>
+                      (Research Laboratory)
+                    </SectionItemTitleSecondary>
                   </SectionItemTitle>
 
                   <SectionItemSubtitle>
@@ -430,19 +442,21 @@ export default () => {
 
                 <SectionItem>
                   <SectionItemTitle
-                    info={
+                    bottomInfo={
                       <>
+                        <Icon path={mdiMapMarker} /> Paris
+                        <HSep s={3} />
                         <Icon path={mdiCalendarClock} /> Started Sep. 2015
                       </>
                     }
                   >
-                    <SectionItemTitleLeft>
+                    <a href="https://www.epita.fr/en">
                       EPITA – École Pour l'Informatique et les Techniques
-                      Avancées{" "}
-                      <SectionItemTitleSecondary>
-                        (Engineering School)
-                      </SectionItemTitleSecondary>
-                    </SectionItemTitleLeft>
+                      Avancées
+                    </a>{" "}
+                    <SectionItemTitleSecondary>
+                      (Engineering School)
+                    </SectionItemTitleSecondary>
                   </SectionItemTitle>
 
                   <SectionItemSubtitle>
@@ -462,6 +476,8 @@ export default () => {
                   <SectionItemTitle
                     info={
                       <>
+                        <Icon path={mdiMapMarker} /> Paris
+                        <HSep s={3} />
                         <Icon path={mdiCalendarClock} /> Started Sep. 2017
                       </>
                     }
@@ -483,6 +499,8 @@ export default () => {
                   <SectionItemTitle
                     info={
                       <>
+                        <Icon path={mdiMapMarker} /> London
+                        <HSep s={3} />
                         <Icon path={mdiCalendarBlank} /> Sep. 2018{" "}
                         <Icon path={mdiArrowRight} /> Dec. 2018
                       </>
@@ -495,16 +513,17 @@ export default () => {
                   </SectionItemTitle>
 
                   <SectionItemSubtitle>
-                    Improved the performance and startup time of web
-                    applications built with the{" "}
+                    Optimized the startup time of web applications built with
+                    the{" "}
                     <a href="https://facebook.github.io/metro/">
                       Metro compiler
                     </a>{" "}
-                    by optimizing the update delivery pipeline through the use
-                    of{" "}
+                    with a new update delivery pipeline using{" "}
                     <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">
                       Service Workers
                     </a>
+                    . Startup time decreased by as much as 80% on slow
+                    connections.
                   </SectionItemSubtitle>
                 </SectionItem>
 
@@ -512,6 +531,8 @@ export default () => {
                   <SectionItemTitle
                     info={
                       <>
+                        <Icon path={mdiMapMarker} /> San Francisco
+                        <HSep s={3} />
                         <Icon path={mdiCalendarBlank} /> May 2017{" "}
                         <Icon path={mdiArrowRight} /> Sep. 2017
                       </>
@@ -535,6 +556,8 @@ export default () => {
                   <SectionItemTitle
                     info={
                       <>
+                        <Icon path={mdiMapMarker} /> Paris
+                        <HSep s={3} />
                         <Icon path={mdiCalendarBlank} /> Jul. 2016{" "}
                         <Icon path={mdiArrowRight} /> Aug. 2016
                       </>
