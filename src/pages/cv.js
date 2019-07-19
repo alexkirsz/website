@@ -517,12 +517,8 @@ export default () => {
                     <a href="https://facebook.github.io/metro/">
                       Metro compiler
                     </a>{" "}
-                    with a new update delivery pipeline using{" "}
-                    <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">
-                      Service Workers
-                    </a>
-                    . Startup time decreased by as much as 80% on slow
-                    connections.
+                    with a state-of-the-art update delivery pipeline, achieving
+                    up to 5x speed-up on slow connections when applying updates.
                   </SectionItemSubtitle>
                 </SectionItem>
 
