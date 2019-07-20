@@ -540,10 +540,10 @@ export default () => {
                   </SectionItemTitle>
 
                   <SectionItemSubtitle>
-                    Built new features into the core product's web interface.
-                    Team training on <a href="https://reactjs.org/">React</a>{" "}
-                    best practices, state management, and related libraries and
-                    ecosystem.
+                    Built new features into the core product's web application.
+                    Trained a team of frontend engineers on{" "}
+                    <a href="https://reactjs.org/">React</a> best practices and
+                    state management solutions.
                   </SectionItemSubtitle>
                 </SectionItem>
 
