@@ -359,7 +359,7 @@ export default () => {
             <Subtitle>
               Looking for a Spring internship in{" "}
               <SubtitleAccent>Software Engineering</SubtitleAccent> and{" "}
-              <SubtitleAccent>Artificial Intelligence</SubtitleAccent>
+              <SubtitleAccent>Computer Vision</SubtitleAccent>
             </Subtitle>
 
             <Subtitle>
