@@ -362,6 +362,11 @@ export default () => {
               <SubtitleAccent>Artificial Intelligence</SubtitleAccent>
             </Subtitle>
 
+            <Subtitle>
+              <SubtitleAccent>J-1 Visa candidate</SubtitleAccent> – does not
+              require sponsorship
+            </Subtitle>
+
             <VSep s={5} />
 
             <Info>
