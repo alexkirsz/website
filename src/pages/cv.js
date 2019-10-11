@@ -415,7 +415,7 @@ export default () => {
               <SectionTitle>
                 Education{" "}
                 <SectionTitleSecondary>(Graduating</SectionTitleSecondary>{" "}
-                September 2020<SectionTitleSecondary>)</SectionTitleSecondary>
+                November 2020<SectionTitleSecondary>)</SectionTitleSecondary>
               </SectionTitle>
 
               <SectionContent>
