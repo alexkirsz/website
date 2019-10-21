@@ -190,15 +190,23 @@ const Section = styled.section`
   box-shadow: inset 0.18cm 0px 0px -0.02cm ${props => props.color};
 `;
 
+const SectionTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+`;
+
 const SectionTitle = styled.h3`
+  flex-grow: 1;
   font-family: ${fontFamily.serif};
   font-size: 1.4rem;
-  margin-bottom: 0.8rem;
 `;
 
 const SectionTitleSecondary = styled.span`
   font-weight: 200;
 `;
+
+const SectionTitleRight = styled.div``;
 
 const SectionContent = styled.div``;
 
@@ -302,12 +310,14 @@ const Pills = styled.div`
 `;
 
 const Pill = styled.a`
+  font-size: ${props => (props.small ? "0.8em" : "1em")};
   display: inline-flex;
   padding: 0.2em 0.4em;
-  /* background-color: ${props => (props.preferred ? "#f3e5f5" : "#e3f2fd")}; */
   box-shadow: 0px 0px 0px 1px
-    ${props => (props.preferred ? "#e1bee7" : "#bbdefb")};
-  color: ${props => (props.preferred ? "#9c27b0" : "#1e88e5")};
+    ${props =>
+      props.preferred ? "#e1bee7" : props.interest ? "#c8e6c9" : "#bbdefb"};
+  color: ${props =>
+    props.preferred ? "#9c27b0" : props.interest ? "#43a047" : "#1e88e5"};
   border-radius: 0.2em;
   margin-right: 0.5em;
   font-weight: ${props => (props.preferred ? "600" : "400")};
@@ -316,7 +326,8 @@ const Pill = styled.a`
   &:active,
   &:visited {
     text-decoration: none;
-    color: ${props => (props.preferred ? "#9c27b0" : "#1e88e5")};
+    color: ${props =>
+      props.preferred ? "#9c27b0" : props.interest ? "#43a047" : "#1e88e5"};
   }
 `;
 
@@ -412,11 +423,13 @@ export default () => {
 
           <Sections>
             <Section color="#b3e5fc">
-              <SectionTitle>
-                Education{" "}
-                <SectionTitleSecondary>(Graduating</SectionTitleSecondary>{" "}
-                November 2020<SectionTitleSecondary>)</SectionTitleSecondary>
-              </SectionTitle>
+              <SectionTitleContainer>
+                <SectionTitle>
+                  Education{" "}
+                  <SectionTitleSecondary>(Graduating</SectionTitleSecondary>{" "}
+                  November 2020<SectionTitleSecondary>)</SectionTitleSecondary>
+                </SectionTitle>
+              </SectionTitleContainer>
 
               <SectionContent>
                 <SectionItem>
@@ -475,7 +488,9 @@ export default () => {
             </Section>
 
             <Section color="#c5e1a5">
-              <SectionTitle>Professional experience</SectionTitle>
+              <SectionTitleContainer>
+                <SectionTitle>Professional experience</SectionTitle>
+              </SectionTitleContainer>
 
               <SectionContent>
                 <SectionItem icon={<LogoEpitaStyled />}>
@@ -581,8 +596,9 @@ export default () => {
             </Section>
 
             <Section color="#ffe082">
-              <SectionTitle>Personal projects</SectionTitle>
-
+              <SectionTitleContainer>
+                <SectionTitle>Personal projects</SectionTitle>
+              </SectionTitleContainer>
               <SectionContent>
                 <SectionItem>
                   <SectionItemTitle>
@@ -632,7 +648,18 @@ export default () => {
             </Section>
 
             <Section color="#ffab91">
-              <SectionTitle>Interests and Miscellaneous Skills</SectionTitle>
+              <SectionTitleContainer>
+                <SectionTitle>Interests and Miscellaneous Skills</SectionTitle>
+                <SectionTitleRight>
+                  <Pill preferred small>
+                    Preferred
+                  </Pill>
+                  <Pill small>Working knowledge</Pill>
+                  <Pill interest small>
+                    Interested in learning
+                  </Pill>
+                </SectionTitleRight>
+              </SectionTitleContainer>
 
               <SectionContent>
                 <SectionItem>
@@ -648,9 +675,6 @@ export default () => {
                       <Pill preferred href="https://ocaml.org/">
                         OCaml
                       </Pill>
-                      <Pill preferred href="https://www.haskell.org/">
-                        Haskell
-                      </Pill>
                       <Pill href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
                         JavaScript
                       </Pill>
@@ -661,6 +685,13 @@ export default () => {
                       <Pill href="https://www.java.com/">Java</Pill>
                       <Pill href="https://en.wikipedia.org/wiki/C_(programming_language)">
                         C
+                      </Pill>
+                      <Pill href="https://golang.org">Go</Pill>
+                      <Pill interest href="https://www.haskell.org/">
+                        Haskell
+                      </Pill>
+                      <Pill interest href="https://kotlinlang.org/">
+                        Kotlin
                       </Pill>
                     </Pills>
                   </SectionItemSubtitle>
@@ -674,11 +705,14 @@ export default () => {
                   <SectionItemSubtitle>
                     <Pills>
                       <Pill href="https://keras.io/">Keras</Pill>
-                      <Pill href="https://www.tensorflow.org/">Tensorflow</Pill>
-                      <Pill href="https://numpy.org/">Numpy</Pill>
-                      <Pill href="https://www.scipy.org/">Scipy</Pill>
+                      <Pill href="https://www.tensorflow.org/">TensorFlow</Pill>
+                      <Pill href="https://numpy.org/">NumPy</Pill>
+                      <Pill href="https://www.scipy.org/">SciPy</Pill>
                       <Pill href="https://scikit-image.org/">Scikit Image</Pill>
                       <Pill href="https://scikit-learn.org/">Scikit Learn</Pill>
+                      <Pill interest href="https://pytorch.org/">
+                        PyTorch
+                      </Pill>
                     </Pills>
                   </SectionItemSubtitle>
                 </SectionItem>
