@@ -47,6 +47,7 @@ const GlobalStyle = createGlobalStyle`
   *,
   *:before,
   *:after {
+    line-height: 1.2;
     box-sizing: inherit;
     -webkit-print-color-adjust: exact;
   }
