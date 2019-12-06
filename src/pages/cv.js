@@ -371,7 +371,7 @@ export default () => {
             <Subtitle>
               Looking for a Spring internship in{" "}
               <SubtitleAccent>Software Engineering</SubtitleAccent> and{" "}
-              <SubtitleAccent>Computer Vision</SubtitleAccent>
+              <SubtitleAccent>Artificial Intelligence</SubtitleAccent>
             </Subtitle>
 
             <VSep s={5} />
