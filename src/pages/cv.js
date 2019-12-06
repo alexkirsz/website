@@ -359,7 +359,7 @@ export default () => {
     <>
       <GlobalStyle />
 
-      <Helmet bodyAttributes={{ class: "A4" }} />
+      <Helmet bodyAttributes={{ class: "A4" }} title="Alexandre Kirszenberg's Resume" />
 
       <SheetContainer className="sheet">
         <Container>
