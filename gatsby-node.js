@@ -1,4 +1,5 @@
 const _ = require("lodash");
+const path = require("path");
 
 // graphql function doesn't throw an error so we have to check to check for the result.errors to throw manually
 const wrapper = promise =>
@@ -31,19 +32,17 @@ exports.onCreateNode = ({ node, actions }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const postTemplate = require.resolve("./src/templates/post.js");
-  const categoryTemplate = require.resolve("./src/templates/category.js");
+  const postTemplate = require.resolve("./src/templates/post.jsx");
+  const categoryTemplate = require.resolve("./src/templates/category.jsx");
 
   const result = await wrapper(
     graphql(`
       {
-        allMarkdownRemark {
+        allMdx {
           edges {
             node {
-              fields {
-                slug
-              }
               frontmatter {
+                slug
                 title
                 categories
               }
@@ -54,17 +53,17 @@ exports.createPages = async ({ graphql, actions }) => {
     `)
   );
 
-  const posts = result.data.allMarkdownRemark.edges;
+  const posts = result.data.allMdx.edges;
 
   posts.forEach((edge, index) => {
     const next = index === 0 ? null : posts[index - 1].node;
     const prev = index === posts.length - 1 ? null : posts[index + 1].node;
 
     createPage({
-      path: edge.node.fields.slug,
+      path: edge.node.frontmatter.slug,
       component: postTemplate,
       context: {
-        slug: edge.node.fields.slug,
+        slug: edge.node.frontmatter.slug,
         prev,
         next
       }
@@ -91,5 +90,19 @@ exports.createPages = async ({ graphql, actions }) => {
         category
       }
     });
+  });
+};
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.wasm$/,
+          type: "javascript/auto",
+          loader: "file-loader"
+        }
+      ]
+    }
   });
 };

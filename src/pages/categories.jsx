@@ -32,7 +32,7 @@ const Title = styled.h3`
 
 const Category = ({
   data: {
-    allMarkdownRemark: { group }
+    allMdx: { group }
   }
 }) => (
   <Layout>
@@ -60,7 +60,7 @@ export default Category;
 
 Category.propTypes = {
   data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
+    allMdx: PropTypes.shape({
       group: PropTypes.array.isRequired
     })
   }).isRequired
@@ -68,7 +68,7 @@ Category.propTypes = {
 
 export const postQuery = graphql`
   query CategoriesPage {
-    allMarkdownRemark {
+    allMdx {
       group(field: frontmatter___categories) {
         fieldValue
         totalCount

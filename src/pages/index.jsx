@@ -45,7 +45,7 @@ const Hero = styled.div`
 
 const IndexPage = ({
   data: {
-    allMarkdownRemark: { edges: postEdges }
+    allMdx: { edges: postEdges }
   }
 }) => (
   <Layout>
@@ -63,9 +63,9 @@ const IndexPage = ({
             date={post.node.frontmatter.date}
             excerpt={post.node.excerpt}
             timeToRead={post.node.timeToRead}
-            slug={post.node.fields.slug}
+            slug={post.node.frontmatter.slug}
             categories={post.node.frontmatter.categories}
-            key={post.node.fields.slug}
+            key={post.node.frontmatter.slug}
           />
         ))}
       </Content>
@@ -77,7 +77,7 @@ export default IndexPage;
 
 IndexPage.propTypes = {
   data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
+    allMdx: PropTypes.shape({
       edges: PropTypes.array.isRequired
     })
   }).isRequired
@@ -85,13 +85,11 @@ IndexPage.propTypes = {
 
 export const IndexQuery = graphql`
   query IndexQuery {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
-          fields {
-            slug
-          }
           frontmatter {
+            slug
             title
             date(formatString: "MM/DD/YYYY")
             categories

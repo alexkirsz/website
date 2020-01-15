@@ -26,9 +26,9 @@ module.exports = {
       }
     },
     {
-      resolve: "gatsby-transformer-remark",
+      resolve: "gatsby-plugin-mdx",
       options: {
-        plugins: [
+        gatsbyRemarkPlugins: [
           {
             resolve: "gatsby-remark-external-links",
             options: {
@@ -62,6 +62,9 @@ module.exports = {
             options: {
               inlineCodeMarker: null
             }
+          },
+          {
+            resolve: `gatsby-remark-katex`
           }
         ]
       }
@@ -83,6 +86,18 @@ module.exports = {
       }
     },
     "gatsby-plugin-offline",
-    "gatsby-plugin-netlify"
+    "gatsby-plugin-netlify",
+    {
+      resolve: "gatsby-plugin-eslint",
+      options: {
+        test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|.cache|public)/,
+        stages: ["develop"]
+        // options: {
+        //   emitWarning: true,
+        //   failOnError: false
+        // }
+      }
+    }
   ]
 };

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 
-import SEO from "./SEO";
+// import SEO from "./SEO";
 import theme from "../../config/theme";
 
 const GlobalStyle = createGlobalStyle`
@@ -193,13 +193,13 @@ const Footer = styled.footer`
   }
 `;
 
-const Layout = ({ children, customSEO }) => (
+const Layout = ({ children }) => (
   <ThemeProvider theme={theme}>
     <>
       <GlobalStyle />
       {children}
       <Footer>
-        &copy; 2019 by Alexandre Kirszenberg. All rights reserved. <br />
+        &copy; 2020 by Alexandre Kirszenberg. All rights reserved. <br />
       </Footer>
     </>
   </ThemeProvider>
@@ -208,10 +208,10 @@ const Layout = ({ children, customSEO }) => (
 export default Layout;
 
 Layout.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired,
-  customSEO: PropTypes.bool
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired
+  // customSEO: PropTypes.bool
 };
 
 Layout.defaultProps = {
-  customSEO: false
+  // customSEO: false
 };

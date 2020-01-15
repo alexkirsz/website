@@ -30,11 +30,8 @@ const Content = styled.div`
   }
 `;
 
-const Category = ({
-  pageContext: { category },
-  data: { allMarkdownRemark }
-}) => {
-  const { edges, totalCount } = allMarkdownRemark;
+const Category = ({ pageContext: { category }, data: { allMdx } }) => {
+  const { edges, totalCount } = allMdx;
   const subline = `${totalCount} post${
     totalCount === 1 ? "" : "s"
   } tagged with "${category}"`;
@@ -57,9 +54,9 @@ const Category = ({
               date={post.node.frontmatter.date}
               excerpt={post.node.excerpt}
               timeToRead={post.node.timeToRead}
-              slug={post.node.fields.slug}
+              slug={post.node.frontmatter.slug}
               categories={post.node.frontmatter.categories}
-              key={post.node.fields.slug}
+              key={post.node.frontmatter.slug}
             />
           ))}
         </Content>
@@ -75,7 +72,7 @@ Category.propTypes = {
     category: PropTypes.string.isRequired
   }).isRequired,
   data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
+    allMdx: PropTypes.shape({
       edges: PropTypes.array.isRequired,
       totalCount: PropTypes.number.isRequired
     })
@@ -84,7 +81,7 @@ Category.propTypes = {
 
 export const postQuery = graphql`
   query CategoryPage($category: String!) {
-    allMarkdownRemark(
+    allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { categories: { eq: $category } } }
     ) {
@@ -95,8 +92,6 @@ export const postQuery = graphql`
             title
             date(formatString: "MM/DD/YYYY")
             categories
-          }
-          fields {
             slug
           }
           excerpt(pruneLength: 200)

@@ -5,6 +5,8 @@ import styled from "styled-components";
 import kebabCase from "lodash/kebabCase";
 import { format } from "date-fns";
 import { enGB } from "date-fns/locale";
+import { MDXRenderer } from "gatsby-plugin-mdx";
+import "katex/dist/katex.min.css";
 
 import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from "../components";
 import config from "../../config";
@@ -53,7 +55,7 @@ const PostContent = styled.div`
 
 const Post = ({
   pageContext: { slug, prev, next },
-  data: { markdownRemark: postNode }
+  data: { mdx: postNode }
 }) => {
   const post = postNode.frontmatter;
 
@@ -77,7 +79,7 @@ const Post = ({
             ))}
           </Subline>
           <PostContent>
-            <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
+            <MDXRenderer>{postNode.body}</MDXRenderer>
           </PostContent>
           <PrevNext prev={prev} next={next} />
         </Content>
@@ -95,7 +97,7 @@ Post.propTypes = {
     prev: PropTypes.object
   }),
   data: PropTypes.shape({
-    markdownRemark: PropTypes.object.isRequired
+    mdx: PropTypes.object.isRequired
   }).isRequired
 };
 
@@ -108,14 +110,14 @@ Post.defaultProps = {
 
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(frontmatter: { slug: { eq: $slug } }) {
       excerpt
       frontmatter {
         title
         date(formatString: "MM/DD/YYYY")
         categories
       }
-      html
+      body
       timeToRead
       parent {
         ... on File {

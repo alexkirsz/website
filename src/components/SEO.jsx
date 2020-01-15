@@ -148,7 +148,6 @@ const SEO = props => {
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="image" content={image} />
-      <meta name="gatsby-starter" content="Gatsby Starter Minimal Blog" />
       <meta property="og:locale" content={config.ogLanguage} />
       <meta
         property="og:site_name"
@@ -192,7 +191,16 @@ const SEO = props => {
 export default SEO;
 
 SEO.propTypes = {
-  postNode: PropTypes.object,
+  postNode: PropTypes.shape({
+    frontmatter: PropTypes.shape({
+      title: PropTypes.string.isRequired
+    }).isRequired,
+    excerpt: PropTypes.string.isRequired,
+    parent: PropTypes.shape({
+      birthtime: PropTypes.string.isRequired,
+      mtime: PropTypes.string.isRequired
+    }).isRequired
+  }),
   postPath: PropTypes.string,
   article: PropTypes.bool,
   buildTime: PropTypes.string

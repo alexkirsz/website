@@ -37,14 +37,14 @@ const PrevNext = ({ next, prev }) => (
     {prev && (
       <Prev>
         <span>Previous</span>
-        <Link to={prev.fields.slug}>{prev.frontmatter.title}</Link>
+        <Link to={prev.frontmatter.slug}>{prev.frontmatter.title}</Link>
       </Prev>
     )}
 
     {next && (
       <Next>
         <span>Next</span>
-        <Link to={next.fields.slug}>{next.frontmatter.title}</Link>
+        <Link to={next.frontmatter.slug}>{next.frontmatter.title}</Link>
       </Next>
     )}
   </Wrapper>
@@ -52,9 +52,16 @@ const PrevNext = ({ next, prev }) => (
 
 export default PrevNext;
 
+const prevNextShape = PropTypes.shape({
+  frontmatter: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+  }).isRequired
+});
+
 PrevNext.propTypes = {
-  next: PropTypes.object,
-  prev: PropTypes.object
+  next: prevNextShape,
+  prev: prevNextShape
 };
 
 PrevNext.defaultProps = {
