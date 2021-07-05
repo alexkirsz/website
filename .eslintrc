@@ -6,7 +6,7 @@
     "node": true
   },
   "plugins": ["import", "react", "jsx-a11y", "prettier"],
-  "extends": ["prettier", "prettier/react"],
+  "extends": ["prettier", "prettier/prettier", "prettier/react"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",

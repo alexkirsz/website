@@ -86,18 +86,6 @@ module.exports = {
       }
     },
     "gatsby-plugin-offline",
-    "gatsby-plugin-netlify",
-    {
-      resolve: "gatsby-plugin-eslint",
-      options: {
-        test: /\.js$|\.jsx$/,
-        exclude: /(node_modules|.cache|public)/,
-        stages: ["develop"]
-        // options: {
-        //   emitWarning: true,
-        //   failOnError: false
-        // }
-      }
-    }
+    "gatsby-plugin-netlify"
   ]
 };
