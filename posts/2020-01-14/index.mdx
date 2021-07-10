@@ -1,0 +1,121 @@
+---
+date: 2020-01-15
+title: Simulating Boids
+slug: boids
+categories:
+  - Simulation
+  - WebAssembly
+  - WebGL
+---
+
+import Simulation from "./Simulation";
+
+I recently set out to implement a [boids](https://en.wikipedia.org/wiki/Boids) simulation as
+part of a class in 3D animation. In short, a boid (short for _bird-oid object_) imitates the
+flocking behavior of a bird. The simulation itself comprises of a set of a few simple rules that
+compose together in a visually pleasing way.
+
+This post features interactive scenes which I'll use to showcase some of the steps of creating the simulation.
+Since the rendering process can be expensive, you'll need to press the _Play_ icon on a scene in order for it to show.
+Once a scene has started rendering, you can rotate it by dragging the scene with the left mouse button pressed,
+zoom and unzoom by scrolling over the scene, and shift it by dragging the scene with the right mouse button pressed.
+
+Here's the mesh I'll use to represent a boid in the rest of this simulation:
+
+<Simulation type="boid" width={200} height={200} />
+
+### Initialization
+
+In order to initialize the simulation, we instantiate my boids objects with randomly generated position and velocity. For the velocity, we generate a random unit vector for the direction, then apply a random magnitude within the range $[\mathtt{MIN_SPEED}, \mathtt{MAX_SPEED}]$.
+
+For the position, I explored a few different ways which I'll explain below.
+
+#### Generating boids within cartesian space.
+
+This solution is by far the simplest: generate uniformly distributed coordinates with a space of dimensions $[ \mathtt{WIDTH}, \mathtt{HEIGHT}, \mathtt{DEPTH}]$.
+
+<Simulation type="cube" width={500} height={500} />
+
+However, we'll soon be adding a constraint that all boids should remain within a certain distance from a center point. As such, it would be better if they were generated in a sphere to begin with.
+
+#### Generating coordinates within a sphere
+
+This solution is a little bit trickier. A naive implementation would be to generate a triplet of spherical coordinates $(r, \theta, \phi)$ with $r$ uniformly distributed in $[0; \mathtt{MAX\_RADIUS}]$, $\theta$ in $[0; \pi]$ and $\phi$ in $[-\pi; \pi]$. However, this will produce a distribution that is biased towards the poles.
+
+<Simulation type="sphere_biased1" width={500} height={500} />
+
+You can re-generate the point cloud a few times by clicking the _Restart_ button on the scene. You'll find an explanation of this phenomenon [in this blog post](http://corysimon.github.io/articles/uniformdistn-on-sphere/), alongside the correct formula $\theta = arccos(2x - 1)$.
+
+<Simulation type="sphere_biased2" width={500} height={500} />
+
+This gives us a better point distribution, but you'll notice that points still seem biased towards the center of the sphere: this is an example of the square-cube law. To fix this, we'll need to raise $r$ to its cube root: $r = x^{\frac{1}{3}}$, as explained [in this blog post](https://blog.joeardent.net/2018/07/right-and-wrong-ways-to-pick-random-points-inside-a-sphere/).
+
+<Simulation type="sphere" width={500} height={500} />
+
+And here's a visualisation of the difference between the distributions, in 2D (using a square root to keep the uniformicity). In green, we have the biased distribution, and in red the uniform distribution.
+
+<Simulation type="distribution" width={500} height={500} />
+
+Note that we could also have re-used our cartesian space method and eliminated points at a distance greater than a threshold from the center.
+
+#### Our first simulation
+
+Once we've generated the boids, we can update them by adding their velocity to their position on each frame. Since we don't have any constraints yet, the boids will stray away without losing any of their initial velocity.
+
+<Simulation type="no_constraints" width={500} height={500} />
+
+### Adding constraints
+
+#### Cohesion
+
+The first constraint we'll add is that of **cohesion**: our boids should stay close together. We'll run through each possible pair of boids and, if they are within a certain distance from each other, apply forces to bring them closer on the next frame. The force we'll apply to the first boid is the opposite of the force we'll apply to the second boid, in accordance to Newton's third law. The magnitude of the force is a function of the distance between the two boids.
+
+<Simulation type="cohesion" width={500} height={500} />
+
+#### Separation
+
+Next, to avoid our boids colliding into each other, we'll add a constraint of **separation**: our boids should remain at a minimum distance from one another. This is similar to the constraint of cohesion, but the directions of the forces are reversed.
+
+<Simulation type="separation" width={500} height={500} />
+
+#### Alignment
+
+The last constraint that has to do with pairs of boids is that of alignment. We want boids that are close to align their speed in the same direction. In order to do this, for each boid, we compute the average velocity of its neighbors (weighted by a function of their distance), and then spherically interpolate the boid's current velocity direction to steer it towards that average velocity's direction.
+
+<Simulation type="alignment" width={500} height={500} />
+
+#### Minimum speed and maximum speed
+
+On top of the previous constraints, we also clamp the magnitude of the velocity of our boids between a minimum and a maximum speed. The minimum speed constraint ensures that our boids have a minimum turn radius, which makes their movements more natural.
+
+#### Keeping our boids in the scene
+
+From the previous simulations, we can see that some boids wander off: they're not close enough to other boids to join a flock, and so no other constraint applies to them to keep them towards the center of the scene. In order to fix this, we can add a constraint of **attraction** to the center of the scene. When boids reach a certain distance from the center point, an exponentially growing force is applied to bring them back towards the center.
+
+<Simulation type="attraction" width={500} height={500} />
+
+#### Avoiding small oscillations
+
+Finally, for our last constraint, we want to ensure that our boids don't oscillate too quickly, which makes their movement seem unnatural. One way to do this is to spherically interpolate their acceleration to bring it closer to their velocity.
+
+<Simulation type="coherence" width={500} height={500} />
+
+### Speeding up the simulation
+
+Now that we've added all our constraints, we'd like to test them on a larger number of boids. However, since we iterate on every pair of boids, each step of our simulation has a complexity of $\mathcal{O}(n^2)$, where $n$ is the number of boids. However, if we only consider the $k$ nearest neighbors, where $k$ is a constant, we can bring that down to a complexity of $\mathcal{O}(n\log{}n)$ by using a [R-Tree](https://en.wikipedia.org/wiki/R-tree) to store our boids.
+
+However, since we're now only considering a smaller number of neighbors, the behavior of our simulation can change drastically. Here's an example where we only consider the 5 nearest neighbors:
+
+<Simulation type="neighbors5_small" width={500} height={500} />
+
+The same example, but scaled up to 500 boids:
+
+<Simulation type="neighbors5_big" width={500} height={500} />
+
+### Breaking up the monotony
+
+If you run the previous simulation for a long enough time, you'll find that it tends to converge into a highway of boids following one another in a large circle. In order to break up this boring status quo, we could introduce **leaders**: boids that are less affected by their peers, but that affect them more in return. We could also introduce **predators**: boids that have a repulsive effect on other boids.
+
+### Roll credits
+
+That's all I have for now! The code is available over at https://github.com/alexkirsz/boids. The simulation was written in Rust and compiled to WebAssembly to run in a browser.
