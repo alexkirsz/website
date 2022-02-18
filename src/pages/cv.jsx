@@ -435,7 +435,7 @@ export default () => {
                       <>
                         <Icon path={mdiMapMarker} /> New York City, Paris
                         <HSep s={3} />
-                        <Icon path={mdiCalendarClock} /> Started Mar. 2020
+                        <Icon path={mdiCalendarClock} /> Mar. 2020 (1 yr. 7 mos.)
                       </>
                     }
                   >
